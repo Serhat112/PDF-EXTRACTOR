@@ -1,7 +1,6 @@
 import os
 
-os.environ["TCL_LIBRARY"] = r"C:\Users\serha\AppData\Local\Programs\Python\Python313\tcl\tcl8.6"
-os.environ["TK_LIBRARY"] = r"C:\Users\serha\AppData\Local\Programs\Python\Python313\tcl\tk8.6"
+from dotenv import load_dotenv
 
 import customtkinter as ctk
 from tkinterdnd2 import TkinterDnD, DND_FILES
@@ -13,7 +12,10 @@ total_pages = 0
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
+load_dotenv()  # .env dosyasını okur
 
+os.environ["TCL_LIBRARY"] = os.getenv("TCL_LIBRARY")
+os.environ["TK_LIBRARY"] = os.getenv("TK_LIBRARY")
 
 class App(TkinterDnD.Tk):
 
