@@ -108,17 +108,39 @@ class App(TkinterDnD.Tk):
             start = int(self.start_entry.get())
             end = int(self.end_entry.get())
 
+            if end < start:
+                self.calc_label.configure(text="Error: End page cannot be less than start page", text_color="red")
+                return
+            
+            if start < 1 or end > total_pages:
+                self.calc_label.configure(text=f"Error: Pages must be between 1 and {total_pages}", text_color="red")
+                return
+
             pages = end - start + 1
 
             self.calc_label.configure(text=f"Extracting {pages} pages", text_color="black")
 
+        except ValueError:
+            self.calc_label.configure(text="")
         except:
             self.calc_label.configure(text="")
 
     def extract(self):
         try:
+            if not selected_file:
+                self.calc_label.configure(text="Error: No PDF file loaded", text_color="red")
+                return
+                
             start = int(self.start_entry.get())
             end = int(self.end_entry.get())
+
+            if end < start:
+                self.calc_label.configure(text="Error: End page cannot be less than start page", text_color="red")
+                return
+            
+            if start < 1 or end > total_pages:
+                self.calc_label.configure(text=f"Error: Pages must be between 1 and {total_pages}", text_color="red")
+                return
 
             reader = PdfReader(selected_file)
             writer = PdfWriter()
@@ -137,10 +159,12 @@ class App(TkinterDnD.Tk):
             with open(output, "wb") as f:
                 writer.write(f)
 
-            self.calc_label.configure(text="PDF created: extracted.pdf", text_color="black")
+            self.calc_label.configure(text="PDF created successfully!", text_color="lightgreen")
 
+        except ValueError:
+            self.calc_label.configure(text="Error: Please enter valid page numbers", text_color="red")
         except Exception as e:
-            self.calc_label.configure(text=str(e))
+            self.calc_label.configure(text=f"Error: {str(e)}", text_color="red")
 
 
 app = App()
