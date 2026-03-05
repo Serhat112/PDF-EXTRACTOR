@@ -14,8 +14,7 @@ This is a Python desktop app to extract specific pages from PDF files.
 2. Create a virtual environment and install dependencies
 python -m venv .venv
 source .venv/Scripts/activate
-   # Windows
-pip install -r requirements.txt
+
 
 3. Create a .env file in the project root with your local TCL/TK paths:
 TCL_LIBRARY=C:\path\to\tcl\tcl8.6
